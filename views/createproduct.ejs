@@ -1,0 +1,51 @@
+<%- include("header.ejs")%>
+<%- include("menu.ejs")%>
+
+<form action="/createproduct" method="Post">
+
+    <input type="text" name="city" id="city" placeholder="city">
+    <input type="text" name="street" id="street" placeholder="street">
+    <input type="text" name="descriptions" id="description" placeholder="description">
+    <input type="text" name="room" id="room" placeholder="Room">
+    <input type="text" name="productprice" id="price" placeholder="Price">
+    <input type="text" name="url1" id="url1" placeholder="Main img">
+    <input type="text" name="url2" id="url2" placeholder="Inside image">
+    <input type="text" name="url3" id="url3" placeholder="surroundings">
+
+
+
+    <input type="submit" id="btncreateproduct" value="create">
+
+</form>
+
+<div class='productList'>
+    <% products.forEach(product => { %>
+    <div class="productItem">
+        <div class="lghphotoDiv">
+            <img class="productPhoto" src="<%= product.url1 %>">
+            <img class="productPhoto" src="<%= product.url2 %>">
+            <img class="productPhoto" src="<%= product.url3 %>">
+        </div>
+
+        <div class="lghInfoDiv">
+            <p class="product__name"><%= product.city %></p>
+            <p class="product__info"><%= product.street %></p>
+            <p class="product__desc"><%= product.descriptions %></p>
+            <p class="product__url"><%= product.room %></p>
+            <p class="product__url"><%= product.price %></p>
+        </div>
+        <div class="lghUxDiv">
+
+
+            <a class="btn-update" href="/update/<%=product._id%>" role="button"><i class="fa fa-edit"></i></a>
+            <a class="btn-delete" href="/delete/<%=product._id%>"> <i class="fa fa-trash"></i></a>
+
+
+        </div>
+
+    </div>
+    <% }) %>
+</div>
+
+
+<%- include("footer.ejs")%>

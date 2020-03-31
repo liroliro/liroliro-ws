@@ -1,0 +1,89 @@
+<%- include("header.ejs")%>
+<%- include("menu.ejs") %>
+
+<body>
+	<div class="productList">
+		<%- include('messages.ejs') %>
+		<% products.forEach(product => { %>
+
+		<div class="productItem">
+			<div class="lghphotoDiv">
+				<img class="productPhoto" src="<%= product.url1 %>">
+				<img class="productPhoto" src="<%= product.url2 %>">
+				<img class="productPhoto" src="<%= product.url3 %>">
+			</div>
+
+			<div class="lghInfoDiv">
+				<p class="product__name"><%= product.city %></p>
+				<table>
+					<tr>
+						<td class="pro-table-Title">Location:</td>
+						<td class="pro-table-Info"><%= product.street %></td>
+					</tr>
+					<tr>
+						<td class="pro-table-Title">Room:</td>
+						<td class="pro-table-Info"><%= product.room %></td>
+
+					</tr>
+					<tr>
+						<td class="pro-table-Title">SEK/week:</td>
+						<td class="pro-table-Info"><%= product.productprice %></td>
+
+					</tr>
+					<tr>
+						<td class="pro-table-Info" colspan="2"></td>
+					</tr>
+					<tr>
+
+						<td class="pro-table-InfoDesc" colspan="2"><%= product.descriptions %></td>
+
+					</tr>
+				</table>
+
+
+				<!-- 
+				<p class="product__info"><%= product.street %></p>
+				<p class="product__desc"><%= product.descriptions %></p>
+				<p class="product__url"><%= product.room %></p>
+				<p class="product__url"><%= product.price %></p>
+ -->
+				<form action="/addtocart/<%= product._id %>" method="post">
+
+					<input type="week" name="bookingDate" id="bookingDate" label="week">
+					<label for="Attendees" class="pro-table-Title">Attendees:</label>
+					<select id="numberOfAttendees" name="numberOfAttendees">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+					<!-- 
+					<input type="number" id="numberOfAttendees" name="numberOfAttendees"> -->
+					<a class="btn-cart" href="/addToCart/<%= product._id %>" role="button"><button type="submit">Book Apartment</i></a>
+				</form>
+			</div>
+			<div class="lghUxDiv">
+
+				<a href="/wishlist/<%= product._id %>"><i class="fa fa-2x fa-heart"></i></a>
+
+			</div>
+
+		</div>
+		<% }) %>
+		
+		
+	</div>
+	
+	<% for(var i=0; i < numberOfPages; i++) { %>
+		
+		<a href="/product/?page=<%= i+1 %>"><%= i+1 %></a>
+
+		<% } %>
+
+</body>
+
+<%- include("footer.ejs")%>

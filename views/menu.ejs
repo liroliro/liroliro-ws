@@ -1,0 +1,25 @@
+<div id="mySidenav" class="sidenav">
+	<a href="javascript:void(0)" id="closebtn" onclick="closeNav()">&times;</a>
+	<ul class="nav__list">
+		<li class="nav__item"><a href="/product">Lägenheter</a></li>
+		<li class="nav__item"><a href="/contact">Kontakt</a></li>
+		<li class="nav__item"><a href="/login">Login</a></li>
+		<li class="nav__item"><a href="/logout">Logout</a></li>
+		<li class="nav__item"><a href="/admin">Admin</a></li>
+	</ul>
+</div>
+<div id="menu-bar">
+	<span id="menu-button" onclick="openNav()">Meny»<script>
+			function openNav() {
+				document.getElementById("mySidenav").style.width = "250px";
+			}
+
+			function closeNav() {
+				document.getElementById("mySidenav").style.width = "0";
+			}
+		</script>
+	</span>
+</div>
+<div id="small-cart">
+	<a href="/checkout"><i class="fas fa-shopping-cart" id="cart"></i></a>
+</div>

@@ -1,0 +1,31 @@
+<%- include("header.ejs")%> <%- include("menu.ejs") %>
+<title>C H O C C - Checkout</title>
+
+<body>
+	<div class="checkout">
+		<%- include('messages.ejs') %> <% products.forEach((product) => { %>
+		<div class="products">
+			<div class="checkout-img">
+				<img class="apt-photo" src="<%= product.url1 %>" />
+			</div>
+			<div class="checkout-header">
+				<h3><%= product.city %>, <%= product.street %></h3>
+			</div>
+			<div class="checkout-price">
+				<span>Pris <%= product.productprice %></span>
+			</div>
+			<a href="/delete/<%= product._id %>">Delete</a>
+		</div>
+		<% }) %>
+		<div class="booking-form">
+			<form action="" method="post" id="order">
+				<input type="text" id="first-name" placeholder="Förnamn" />
+				<input type="text" id="last-name" placeholder="Efternamn" /><br />
+				<input type="text" id="city" placeholder="Stad" /><br />
+				<input type="text" id="street" placeholder="Gata" />
+				<input type="text" id="house-number" placeholder="Husnummer/port" />
+			</form>
+		</div>
+	</div>
+</body>
+<%- include("footer.ejs") %>
