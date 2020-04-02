@@ -1,0 +1,7 @@
+sk_live_jXX4muGJwHAtOhc2kJsR5HnS00jBVws35A
+
+TEST:
+Publishable key
+pk_test_57op5ffYMwDvpOCsj52R54Mk00YNOL9mfN
+Secret key
+sk_test_tjNhdI5yTlxTgVUESOkJZ9CE00KJiv3YQv

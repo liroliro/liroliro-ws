@@ -11,6 +11,8 @@ const crypto = require('crypto');
 const Product = require('../model/product');
 const flash = require('connect-flash');
 
+const stripe = require('stripe')(config.Stripe_Secret_Key);
+
 const transport = nodemailer.createTransport(
 	sendGridTransport({
 		auth: {
@@ -171,6 +173,26 @@ router.get('/wishlist/:id', verifyToken, async (req, res) => {
 	res.send('Wishlisted');
 });
 
+router.get('/addToCart/:id', verifyToken, async (req, res) => {
+	let user;
+
+	if (!req.body.user) {
+		user = null;
+
+		req.flash('error_msg', 'Du måste vara inloggad');
+
+		return res.redirect('/product');
+	}
+
+	user = await User.findOne({
+		_id: req.body.user._id
+	});
+	await user.addToCart({ _id: req.params.id });
+
+	req.flash('success_msg', 'Varan är tillagd i varukorgen');
+	res.redirect('/product');
+});
+
 router.get('/checkout', verifyToken, async (req, res) => {
 	let products = [];
 
@@ -195,24 +217,46 @@ router.get('/checkout', verifyToken, async (req, res) => {
 	});
 });
 
-router.get('/addToCart/:id', verifyToken, async (req, res) => {
-	let user;
+router.get('/order', verifyToken, async (req, res) => {
+	let products = [];
 
 	if (!req.body.user) {
-		user = null;
-
 		req.flash('error_msg', 'Du måste vara inloggad');
-
 		return res.redirect('/product');
 	}
 
 	user = await User.findOne({
 		_id: req.body.user._id
 	});
-	await user.addToCart({ _id: req.params.id });
 
-	req.flash('success_msg', 'Varan är tillagd i varukorgen');
-	res.redirect('/product');
+	for (let i = 0; i < user.cart.length; i++) {
+		let product = await Product.findOne({
+			_id: user.cart[i].productId
+		});
+		products.push(product);
+	}
+
+	return stripe.checkout.sessions
+		.create({
+			payment_method_types: ['card'],
+			line_items: products.map(product => {
+				return {
+					name: product.city,
+					amount: product.productprice * 100,
+					quantity: 1,
+					currency: 'sek'
+				};
+			}),
+			success_url: req.protocol + '://' + req.get('Host') + '/',
+			cancel_url: 'http://localhost:8000/fail'
+		})
+		.then(session => {
+			res.render('payment', { products, sessionId: session.id });
+		});
+});
+
+router.get('/fail', (req, res) => {
+	res.send('Your payment did not succeed.');
 });
 
 router.get('/delete/:id', verifyToken, async (req, res) => {
