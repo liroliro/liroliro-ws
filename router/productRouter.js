@@ -92,29 +92,6 @@ router.get('/product', async (req, res) => {
 	});
 });
 
-let newBooking;
-router.post('/addtocart', async (req, res) => {
-	console.log(req.body);
-	newBooking = await new BookingModel({
-		/* ownerUserId: ,
-		locationId: , */
-		/* dateTimeFrom: req.body.dateTimeFrom, */
-
-		bookingDate: req.body.bookingDate,
-		numberOfAttendees: req.body.numberOfAttendees
-	}).save();
-
-	res.redirect('/addtocart');
-});
-
-//Försöker konvertera string till date i mongoDb//Backlog
-/* const bookingDb = BookingModel.find();
-
-bookingDb.forEach(function (doc) {
-	doc.bookingDate = new ISODate(doc.bookingDate);
-	db.bookingDb.save(doc);
-}) */
-
 router.get('/update/:id', async (req, res) => {
 	const response = await ProductModel.findById({ _id: req.params.id });
 	console.log(response);

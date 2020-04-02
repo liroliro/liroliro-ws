@@ -247,7 +247,7 @@ router.get('/order', verifyToken, async (req, res) => {
 					currency: 'sek'
 				};
 			}),
-			success_url: req.protocol + '://' + req.get('Host') + '/',
+			success_url: req.protocol + '://' + req.get('Host') + '/thankyou',
 			cancel_url: 'http://localhost:8000/fail'
 		})
 		.then(session => {
@@ -257,6 +257,18 @@ router.get('/order', verifyToken, async (req, res) => {
 				Stripe_Public_Key: config.Stripe_Public_Key
 			});
 		});
+});
+
+router.get('/thankyou', verifyToken, async (req, res) => {
+	let user = await User.findOne({
+		_id: req.body.user._id
+	});
+
+	user.cart = [];
+
+	user.save();
+
+	res.render('thankyou');
 });
 
 router.get('/fail', (req, res) => {
