@@ -1,14 +1,14 @@
-<% products.forEach((product) => { %>
-<div><%= product.city %></div>
-<div><%= product.productprice %></div>
+<%- include("header.ejs") %><% products.forEach((product) => { %>
+<p class="alignCenter"><%= product.city %></p>
+<p class="alignCenter"><%= product.productprice %></p>
 <% }) %>
 
-<button id="btn">Buy</button>
+<button id="btn" class="btnAlign">Buy</button>
 
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-	var stripe = Stripe('pk_test_57op5ffYMwDvpOCsj52R54Mk00YNOL9mfN');
+	var stripe = Stripe('<%= Stripe_Public_Key %>');
 	document.querySelector('#btn').addEventListener('click', () => {
 		stripe.redirectToCheckout({
 			sessionId: '<%= sessionId %>'

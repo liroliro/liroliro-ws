@@ -305,8 +305,6 @@ body {
 }
 
 @media screen and (min-width: 992px) {
-	body {
-	}
 	.productList {
 		justify-content: space-between;
 		float: left;
@@ -488,4 +486,25 @@ li i {
 .contactInfo {
 	text-align: center;
 	height: 300px;
+}
+
+.totalPrice {
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	margin-left: 25%;
+}
+
+.alignCenter {
+	text-align: center;
+}
+
+.btnAlign {
+	margin-left: 50%;
+	margin-bottom: 1%;
+}
+
+.btnAlign a {
+	text-decoration: none;
+	color: green;
 }

@@ -18,25 +18,11 @@
 		</div>
 		<% }) %> <% let total = 0 %> <% for (let i = 0; i < products.length; i++) {
 		%> <% total += products[i].productprice %> <% } %>
-		<p class="prod-info text-right mb-1 subtotal"><%= total %> SEK</p>
-		<div class="booking-form">
-			<form action="/checkout/" method="post" id="order">
-				<input type="text" name="firstName" placeholder="Förnamn" />
-				<input type="text" name="lastName" placeholder="Efternamn" /><br />
-				<input type="text" name="city" placeholder="Stad" /><br />
-				<input type="text" name="street" placeholder="Gata" />
-				<input type="text" name="houseNumber" placeholder="Husnummer/port" />
-
-				<br />
-				<input type="text" name="totalPrice" value="<%= total %>" hidden />
-				<input type="text" name="cartNumber" placeholder="Kortnummer" />
-				<input type="text" name="house-number" placeholder="CVV-kod" />
-				<br />
-				<button>Submit</button>
-			</form>
-		</div>
+		<p class="alignCenter">
+			Totalt pris: <span class="totalPrice"><%= total %> </span>SEK
+		</p>
 	</div>
 
-	<a href="/order">Betala!</a>
+	<button class="btnAlign"><a href="/order">Betala!</a></button>
 </body>
 <%- include("footer.ejs") %>

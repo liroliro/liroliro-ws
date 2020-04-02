@@ -251,7 +251,11 @@ router.get('/order', verifyToken, async (req, res) => {
 			cancel_url: 'http://localhost:8000/fail'
 		})
 		.then(session => {
-			res.render('payment', { products, sessionId: session.id });
+			res.render('payment', {
+				products,
+				sessionId: session.id,
+				Stripe_Public_Key: config.Stripe_Public_Key
+			});
 		});
 });
 
